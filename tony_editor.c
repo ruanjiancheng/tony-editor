@@ -1,5 +1,5 @@
-#define KILO_VERSION "0.0.1"
-#define KILO_QUIT_TIMES 1
+#define VERSION "0.0.1"
+#define QUIT_TIMES 1
 
 #ifdef __linux__
 #define _POSIX_C_SOURCE 200809L
@@ -484,7 +484,7 @@ void editorUpdateRow(erow *row) {
     unsigned long long allocsize =
         (unsigned long long) row->size + tabs*8 + nonprint*9 + 1;
     if (allocsize > UINT32_MAX) {
-        printf("Some line of the edited file is too long for kilo\n");
+        printf("Some line of the edited file is too long for editor\n");
         exit(1);
     }
 
@@ -767,7 +767,7 @@ void editorRefreshScreen(void) {
             if (E.numrows == 0 && y == E.screenrows/3) {
                 char welcome[80];
                 int welcomelen = snprintf(welcome,sizeof(welcome),
-                    "Kilo editor -- verison %s\x1b[0K\r\n", KILO_VERSION);
+                    "editor -- verison %s\x1b[0K\r\n", VERSION);
                 int padding = (E.screencols-welcomelen)/2;
                 if (padding) {
                     abAppend(&ab,"~",1);
@@ -945,7 +945,7 @@ void editorMoveCursor(int key) {
 }
 
 void editorProcessKeypress(int fd) {
-    static int quit_times = KILO_QUIT_TIMES;
+    static int quit_times = QUIT_TIMES;
 
     int c = editorReadKey(fd);
     switch(c) {
@@ -1003,7 +1003,7 @@ void editorProcessKeypress(int fd) {
         break;
     }
 
-    quit_times = KILO_QUIT_TIMES;
+    quit_times = QUIT_TIMES;
 }
 
 int editorFileWasModified(void) {
@@ -1042,7 +1042,7 @@ void initEditor(void) {
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        fprintf(stderr,"Usage: kilo <filename>\n");
+        fprintf(stderr,"Usage: tony_editor <filename>\n");
         exit(1);
     }
 
